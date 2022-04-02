@@ -1,4 +1,3 @@
-
 from modelos import db, GlobalList, GlobalListSchema, User, UserSchema
 from flask import current_app, request, send_file
 import socket
@@ -15,7 +14,6 @@ from datetime import datetime
 
 # Current date time in local system
 print()
-
 
 globalList_schema = GlobalListSchema()
 user_schema = UserSchema()
@@ -68,13 +66,13 @@ class VistaBlackListDetail(Resource):
     def get(self, email):
         identity = get_jwt_identity()
         query_string = "select * from global_list t where t.email =" + \
-            '\'' + str(email) + '\''
+                       '\'' + str(email) + '\''
         result = db.engine.execute(query_string)
-        rta=[dict(row) for row in result]
-        if len(rta)==0 :
-            return "no", 200
+        rta = [dict(row) for row in result]
+        if len(rta) == 0:
+            return "El email no está en la lista negra", 200
         else:
-            return "si", 200
+            return "El email sí está en la lista negra", 200
 
 
 class VistaHealth(Resource):
